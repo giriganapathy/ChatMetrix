@@ -3,9 +3,9 @@ var request = require("request");
 var url = "https://api-verizon-dev.touchcommerce.com";
 var cookieInfo = "";
 var createSession = function (fnCallback) {
-    //Setting up proxy.
-    var options = {
-        "proxy": "http://tpaproxy.verizon.com:80",
+	//Setting up proxy.
+	//"proxy": "http://tpaproxy.verizon.com:80",
+    var options = {        
 		"url": url + "/j_spring_security_check",
 		"method": "POST",
 		"headers": {
@@ -59,8 +59,8 @@ var createSession = function (fnCallback) {
 
 var destroySession = function (fnCallback) {
 	//Setting up proxy.
-	var options = {
-		"proxy": "http://proxy.ebiz.verizon.com:80",
+	//"proxy": "http://proxy.ebiz.verizon.com:80",
+	var options = {		
 		"url": url + "/logout",
 		"method": "GET",
 		"headers": {
@@ -92,8 +92,8 @@ var destroySession = function (fnCallback) {
 var chatSummary = function (fnCallback) {
 	
 	//Setting up proxy.
-	var options = {
-		"proxy": "http://proxy.ebiz.verizon.com:80",
+	//"proxy": "http://proxy.ebiz.verizon.com:80",
+	var options = {		
 		"url": url + "/v3/metric/realtime?category=engagement&dimension=summary&site=10004593",
 		"method": "GET",
 		"headers": {
