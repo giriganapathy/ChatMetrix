@@ -1,0 +1,16 @@
+{
+  "name": "chatmetrics",
+  "version": "0.0.0",
+  "description": "chatmetrics",
+  "main": "app.js",
+  "author": {
+    "name": "Administrator",
+    "email": ""
+  },
+  "dependencies": {
+    "botbuilder": "^3.2.3",
+    "node-rest-client": "^2.0.1",
+    "request": "^2.74.0",
+    "restify": "^4.1.1"
+  }
+}
