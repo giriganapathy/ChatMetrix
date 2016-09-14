@@ -20,50 +20,8 @@ server.listen(process.env.port || process.env.PORT || 3978, function () {
 });
 server.post("/api/messages", connector.listen());
 var bot = new builder.UniversalBot(connector);
-bot.dialog('/', dialog);
-
-bot.use(builder.Middleware.firstRun({ version: 1.0, dialogId: '*:/firstRun' }));
-
-dialog.onDefault(builder.DialogAction.send("I'm sorry I didn't understand. Ask something about engagement/chat status to help you!"));
-
-bot.dialog('/firstRun', [
-	function (session) {
-		session.userData.chatSessionCreated = true;
-		tc.createSession(function (err, data) {
-			if (null != err) {
-				console.log("Session Creation Failed..." + err.description);
-			}
-			else {
-				if (null == data || data["result"] == false) {
-					console.log("Session Creation Failed...Reason: Unknown");
-				}
-			}
-		});
-	}
-]);
-
-dialog.matches('intent.engagement.summary', [
-	function (session, args, next) {
-		// Resolve and store any entities passed from LUIS.
-		var entity = builder.EntityRecognizer.findEntity(args.entities, 'category');
-		if (null != entity && null != entity.entity) {
-			tc.chatSummary(function (errInfo, dataInfo) {
-				if (null != errInfo) {
-					console.log(errInfo.message);
-				}
-				else {
-					session.send(JSON.stringify(dataInfo));
-				}
-			});
-		}
-		else {
-			session.send("I'm sorry I didn't understand. Try again");
-		}
-	}
-]);
-
-
-/*bot.dialog("/", function (session) {
+//bot.dialog('/', dialog);
+bot.dialog("/", function (session) {
     if (null == session.userData.chatSessionCreated || false == session.userData.chatSessionCreated) {
         session.userData.chatSessionCreated = true;
         tc.createSession(function (err, data) {
@@ -113,6 +71,5 @@ dialog.matches('intent.engagement.summary', [
             });
         }
     }
-});*/
- 
+});
 //# sourceMappingURL=server.js.map
