@@ -5,7 +5,7 @@ var cookieInfo = "";
 var createSession = function (fnCallback) {
     //Setting up proxy.
     var options = {
-        "proxy": "http://proxy.ebiz.verizon.com:80",
+        "proxy": "http://tpaproxy.verizon.com:80",
 		"url": url + "/j_spring_security_check",
 		"method": "POST",
 		"headers": {
