@@ -46,19 +46,26 @@ bot.dialog('/firstRun', [
 ]);
 dialog.matches('intent.engagement.summary', [
     function (session, args, next) {
+        session.send("I am here...");
         // Resolve and store any entities passed from LUIS.
         var entity = builder.EntityRecognizer.findEntity(args.entities, 'category');
+        session.send("I am here 2...");
         if (null != entity && null != entity.entity) {
+            session.send("I am here 3...");
             tc.chatSummary(function (errInfo, dataInfo) {
+                session.send("I am here 4...");
                 if (null != errInfo) {
+                    session.send("I am here 5...");
                     session.send(errInfo.message);
                 }
                 else {
+                    session.send("I am here 6...");
                     session.send(JSON.stringify(dataInfo));
                 }
             });
         }
         else {
+            session.send("I am here 7...");
             session.send("I'm sorry I didn't understand. Try again");
         }
     }
