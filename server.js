@@ -25,20 +25,25 @@ bot.use(builder.Middleware.firstRun({ version: 1.0, dialogId: '*:/firstRun' }));
 dialog.onDefault(builder.DialogAction.send("I'm sorry I didn't understand. Ask something about engagement/chat status to help you!"));
 bot.dialog('/firstRun', [
     function (session) {
-        session.userData.chatSessionCreated = true;
-        tc.createSession(function (err, data) {
-            if (null != err) {
-                session.send("Session Creation Failed..." + err.description);
-            }
-            else {
-                if (null == data || data["result"] == false) {
-                    session.send("Session Creation Failed...Reason: Unknown");
+        if(!session.userData.chatSessionCreated) {
+            tc.createSession(function (err, data) {
+                if (null != err) {
+                    session.send("Session Creation Failed..." + err.description);
                 }
-                else if(true == data["result"]) {
-                    session.send("Session Created Successfully! - Cookie Info:" + data["cookie-info"]);
+                else {
+                    if (null == data || data["result"] == false) {
+                        session.send("Session Creation Failed...Reason: Unknown");
+                    }
+                    else if(true == data["result"]) {
+                        session.send("Session Created Successfully! - Cookie Info:" + data["cookie-info"]);
+                        session.userData.chatSessionCreated = true;
+                    }
                 }
-            }
-        });
+            });
+        }
+        else {
+            next();
+        }
     }
 ]);
 dialog.matches('intent.engagement.summary', [
