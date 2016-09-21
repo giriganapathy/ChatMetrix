@@ -25,6 +25,7 @@ bot.use(builder.Middleware.firstRun({ version: 1.0, dialogId: '*:/firstRun' }));
 dialog.onDefault(builder.DialogAction.send("I'm sorry I didn't understand. Ask something about engagement/chat status to help you!"));
 bot.dialog('/firstRun', [
     function (session) {
+        session.send("Session Status:" + session.userData.chatSessionCreated);
         if(!session.userData.chatSessionCreated) {
             tc.createSession(function (err, data) {
                 if (null != err) {
