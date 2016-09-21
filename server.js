@@ -35,7 +35,7 @@ bot.dialog('/firstRun', [
                     session.send("Session Creation Failed...Reason: Unknown");
                 }
                 else if(true == data["result"]) {
-                    session.send("Session Created Successfully!");
+                    session.send("Session Created Successfully! - Cookie Info:" + data["cookie-info"]);
                 }
             }
         });
