@@ -51,7 +51,7 @@ var createSession = function (fnCallback) {
 		}
 		
 		if (null != fnCallback && typeof fnCallback == "function") {
-			fnCallback(null, { "result": true });
+			fnCallback(null, { "result": true, "cookie-info": cookieInfo });
 		}		
 	});
     //ends here...
@@ -107,21 +107,29 @@ var chatSummary = function (fnCallback) {
 	request(options, function (err, response, body) {
 		if (err) {
 			var errr = {
-				"description": "Response data is empty!",
-				"data": err.toString()
+				"description": "Response data is empty!"
 			};
 			if (null != fnCallback && typeof fnCallback == "function") {
 				fnCallback(errr, null);
 				return;
 			}
+		}
+		var parsedData = {};
+		try {
+			parsedData = JSON.parse(body);
 			if (null != fnCallback && typeof fnCallback == "function") {
-				fnCallback(null, { "result": true });
+				fnCallback(null, parsedData);
 			}
 		}
-		var parsedData = JSON.parse(body);
-		if (null != fnCallback && typeof fnCallback == "function") {
-			fnCallback(null, parsedData);
+		catch(ex) {
+			var err = {
+				"description": "Could not parse the response body!"
+			};
+			if (null != fnCallback && typeof fnCallback == "function") {
+				fnCallback(err, null);
+			}
 		}
+		
 	});
 };
 module.exports.createSession = createSession;
