@@ -41,9 +41,6 @@ bot.dialog('/firstRun', [
                 }
             });
         }
-        else {
-            next();
-        }
     }
 ]);
 dialog.matches('intent.engagement.summary', [
